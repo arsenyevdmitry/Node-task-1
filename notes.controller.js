@@ -18,6 +18,18 @@ async function addNote(title) {
   console.log(chalk.bgGreen("Note was added!"))
 }
 
+async function editNote(id, title) {
+  let notes = await getNotes()
+  const index = notes.findIndex((note) => note.id === id)
+  if (index !== -1) {
+    notes[index].title = title
+    await saveNotes(notes)
+    console.log(chalk.bgGreen("Значение title успешно изменено"))
+  } else {
+    console.log(chalk.bgRed("Значение id не было найдено"))
+  }
+}
+
 async function removeNote(idToDelete) {
   const notes = await getNotes()
 
@@ -50,4 +62,5 @@ module.exports = {
   addNote,
   printNotes,
   removeNote,
+  editNote,
 }
